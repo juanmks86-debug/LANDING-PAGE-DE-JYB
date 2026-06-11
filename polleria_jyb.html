@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Almacén JYB – Perico, Jujuy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <!-- Google Analytics 4 – reemplazá G-XXXXXXXXXX con tu Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+
+    // Evento: click en botón WhatsApp
+    function trackWhatsApp() {
+      gtag('event', 'whatsapp_click', {
+        event_category: 'contacto',
+        event_label: 'boton_pedir_ahora'
+      });
+    }
+
+    // Evento: click en llamar
+    function trackCall() {
+      gtag('event', 'phone_click', {
+        event_category: 'contacto',
+        event_label: 'boton_llamar'
+      });
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --naranja:    #F47C00;
+      --naranja-vivo: #FF9A1F;
+      --negro:      #0D0D0D;
+      --gris-oscuro:#1A1A1A;
+      --gris-medio: #2C2C2C;
+      --texto:      #F0EDE8;
+      --texto-suave:#A89F95;
+      --ff-display: 'Bebas Neue', sans-serif;
+      --ff-body:    'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--negro);
+      color: var(--texto);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,13,13,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--gris-medio);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 2rem;
+    }
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.08em;
+      color: var(--naranja);
+    }
+    .nav-logo span { color: var(--texto); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--texto-suave);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--naranja); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 90vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 2rem;
+      padding: 5rem 2rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--naranja);
+      color: var(--negro);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.3rem 0.8rem;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-family: var(--ff-display);
+      font-size: clamp(3.5rem, 8vw, 6rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--texto);
+    }
+    .hero h1 .accent { color: var(--naranja); }
+    .hero-sub {
+      margin-top: 1.2rem;
+      color: var(--texto-suave);
+      font-size: 1.05rem;
+      max-width: 400px;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .btn-primary {
+      background: var(--naranja);
+      color: var(--negro);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.85rem 1.8rem;
+      border: none; border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-primary:hover { background: var(--naranja-vivo); transform: translateY(-2px); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--texto);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.85rem 1.8rem;
+      border: 1.5px solid var(--gris-medio);
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-secondary:hover { border-color: var(--naranja); color: var(--naranja); }
+
+    /* Imagen hero */
+    .hero-image {
+      display: flex; justify-content: center; align-items: center;
+      position: relative;
+    }
+    .hero-image .pollo-emoji {
+      font-size: clamp(8rem, 18vw, 14rem);
+      filter: drop-shadow(0 0 60px rgba(244,124,0,0.4));
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-12px); }
+    }
+    .hero-stat {
+      position: absolute; bottom: 0; right: 0;
+      background: var(--gris-oscuro);
+      border: 1px solid var(--gris-medio);
+      border-radius: 8px;
+      padding: 0.8rem 1.2rem;
+      text-align: center;
+    }
+    .hero-stat strong {
+      display: block;
+      font-family: var(--ff-display);
+      font-size: 2rem;
+      color: var(--naranja);
+    }
+    .hero-stat span { font-size: 0.75rem; color: var(--texto-suave); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--gris-medio);
+      margin: 0 2rem;
+    }
+
+    /* ── SECCIONES ── */
+    section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--naranja);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+    }
+
+    /* ── MENÚ ── */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.2rem;
+      margin-top: 2.5rem;
+    }
+    .menu-card {
+      background: var(--gris-oscuro);
+      border: 1px solid var(--gris-medio);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .menu-card:hover { border-color: var(--naranja); transform: translateY(-3px); }
+    .menu-card .emoji { font-size: 2.2rem; margin-bottom: 0.8rem; display: block; }
+    .menu-card h3 { font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem; }
+    .menu-card p { color: var(--texto-suave); font-size: 0.88rem; }
+    .menu-card .price {
+      margin-top: 1rem;
+      font-family: var(--ff-display);
+      font-size: 1.6rem;
+      color: var(--naranja);
+    }
+
+    /* ── POR QUÉ JYB ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .feature {
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .feature-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: var(--gris-medio);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .feature h4 { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .feature p { color: var(--texto-suave); font-size: 0.85rem; }
+
+    /* ── CONTACTO ── */
+    .contacto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 2.5rem;
+      align-items: start;
+    }
+    .info-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+    .info-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: var(--naranja);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      color: var(--negro);
+    }
+    .info-item h4 { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.2rem; }
+    .info-item p { color: var(--texto-suave); font-size: 0.88rem; }
+
+    /* Mapa embed placeholder */
+    .mapa-embed {
+      background: var(--gris-oscuro);
+      border: 1px solid var(--gris-medio);
+      border-radius: 8px;
+      overflow: hidden;
+      height: 280px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.5rem;
+      color: var(--texto-suave); font-size: 0.9rem;
+    }
+    .mapa-embed span { font-size: 2rem; }
+
+    /* ── CTA FINAL ── */
+    .cta-final {
+      background: var(--gris-oscuro);
+      border: 1px solid var(--gris-medio);
+      border-radius: 12px;
+      text-align: center;
+      padding: 4rem 2rem;
+      margin: 0 2rem 5rem;
+      max-width: 1100px;
+      margin-left: auto; margin-right: auto;
+    }
+    .cta-final h2 {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 0.8rem;
+    }
+    .cta-final p { color: var(--texto-suave); margin-bottom: 2rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--gris-medio);
+      padding: 2rem;
+      text-align: center;
+      color: var(--texto-suave);
+      font-size: 0.8rem;
+    }
+    footer strong { color: var(--naranja); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .hero { grid-template-columns: 1fr; padding-top: 3rem; }
+      .hero-image { order: -1; }
+      .contacto-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">JYB<span> Almacén</span></div>
+  <ul class="nav-links">
+    <li><a href="#menu">Menú</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a class="btn-primary"
+     href="https://wa.me/5493884000000?text=Hola!%20Quiero%20hacer%20un%20pedido%20🐔"
+     target="_blank"
+     onclick="trackWhatsApp()"
+     style="padding:0.55rem 1.2rem; font-size:0.82rem;">
+    📲 Pedir por WhatsApp
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-text">
+    <span class="hero-badge">🛒 Almacén en Perico, Jujuy</span>
+    <h1>Todo lo que<br>necesitás en<br><span class="accent">un solo lugar</span></h1>
+    <p class="hero-sub">Pollos frescos, almacén, gaseosas, artículos de limpieza y servicio de impresión. En el Barrio San Roque, Perico.</p>
+    <div class="hero-actions">
+      <a class="btn-primary"
+         href="https://wa.me/5493884000000?text=Hola!%20Quiero%20hacer%20un%20pedido%20🐔"
+         target="_blank"
+         onclick="trackWhatsApp()">
+        📲 Hacer un pedido
+      </a>
+      <a class="btn-secondary" href="#menu">Ver menú ↓</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <span class="pollo-emoji">🍗</span>
+    <div class="hero-stat">
+      <strong>100%</strong>
+      <span>Pollo fresco<br>sin congelar</span>
+    </div>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- PRODUCTOS -->
+<section id="menu">
+  <p class="section-label">Lo que ofrecemos</p>
+  <h2 class="section-title">Nuestros Productos</h2>
+  <p style="color:var(--texto-suave); max-width:500px;">Almacén completo con todo lo que necesitás. Precios accesibles, atención familiar.</p>
+
+  <div class="menu-grid">
+    <div class="menu-card">
+      <span class="emoji">🐔</span>
+      <h3>Pollos Frescos</h3>
+      <p>Pollo entero, mitades, pechugas, muslos y menudos. Frescos todos los días.</p>
+      <div class="price">Consultar</div>
+    </div>
+    <div class="menu-card">
+      <span class="emoji">🧃</span>
+      <h3>Gaseosas y Bebidas</h3>
+      <p>Variedad de gaseosas y bebidas frías en nuestro refrigerador.</p>
+      <div class="price">Consultar</div>
+    </div>
+    <div class="menu-card">
+      <span class="emoji">🍪</span>
+      <h3>Galletitas y Golosinas</h3>
+      <p>Amplio surtido de galletitas dulces, saladas y golosinas para toda la familia.</p>
+      <div class="price">Consultar</div>
+    </div>
+    <div class="menu-card">
+      <span class="emoji">🍝</span>
+      <h3>Fideos y Secos</h3>
+      <p>Fideos, arroz y productos de almacén. Lo básico para tu cocina de siempre.</p>
+      <div class="price">Consultar</div>
+    </div>
+    <div class="menu-card">
+      <span class="emoji">🧹</span>
+      <h3>Artículos de Limpieza</h3>
+      <p>Detergentes, lavandina, jabón y todo lo necesario para el hogar.</p>
+      <div class="price">Consultar</div>
+    </div>
+    <div class="menu-card">
+      <span class="emoji">🖨️</span>
+      <h3>Servicio de Impresión</h3>
+      <p>Imprimí tus documentos, trabajos y fotos sin moverte del barrio.</p>
+      <div class="price">Consultar</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- POR QUÉ JYB -->
+<section id="nosotros">
+  <p class="section-label">¿Por qué elegirnos?</p>
+  <h2 class="section-title">Todo en uno,<br><span style="color:var(--naranja)">en tu barrio</span></h2>
+  <div class="features-grid">
+    <div class="feature">
+      <div class="feature-icon">🛒</div>
+      <div>
+        <h4>Almacén completo</h4>
+        <p>Pollos, bebidas, secos, limpieza e impresión. No necesitás ir a otro lado.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🐔</div>
+      <div>
+        <h4>Pollo fresco cada día</h4>
+        <p>Sin freezer ni conservantes. Frescos y listos para llevar.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">💬</div>
+      <div>
+        <h4>Pedido por WhatsApp</h4>
+        <p>Mandá tu pedido antes de venir y lo tenemos listo para vos.</p>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📍</div>
+      <div>
+        <h4>En el Barrio San Roque</h4>
+        <p>Negocio familiar de Perico. Te atendemos como te merecés.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <p class="section-label">Encontranos</p>
+  <h2 class="section-title">Vení o escribinos</h2>
+
+  <div class="contacto-grid">
+    <div>
+      <div class="info-item">
+        <div class="info-icon">📍</div>
+        <div>
+          <h4>Dirección</h4>
+          <p>Av. Santa Fe, Barrio San Roque<br>Ciudad de Perico, Jujuy</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">🕐</div>
+        <div>
+          <h4>Horarios</h4>
+          <p>Lunes a Sábado: 9:00 – 14:00 hs</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📲</div>
+        <div>
+          <h4>WhatsApp</h4>
+          <p>Pedidos, consultas y precios.<br>Respondemos rápido.</p>
+        </div>
+      </div>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1.5rem;">
+        <a class="btn-primary"
+           href="https://wa.me/5493884000000?text=Hola!%20Quiero%20hacer%20un%20pedido%20🐔"
+           target="_blank"
+           onclick="trackWhatsApp()">
+          📲 Escribir por WhatsApp
+        </a>
+        <a class="btn-secondary"
+           href="tel:+5493884000000"
+           onclick="trackCall()">
+          📞 Llamar
+        </a>
+      </div>
+    </div>
+    <div class="mapa-embed">
+      <span>📍</span>
+      <p>Reemplazá esto con un embed<br>de Google Maps</p>
+      <small style="color:var(--texto-suave);">iframe src="https://maps.google.com/..."</small>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<div class="cta-final">
+  <h2>¿Necesitás algo del almacén?</h2>
+  <p>Escribinos por WhatsApp y te respondemos al instante. Todo fresco, todo cerca.</p>
+  <a class="btn-primary"
+     href="https://wa.me/5493884000000?text=Hola!%20Quiero%20hacer%20un%20pedido%20🐔"
+     target="_blank"
+     onclick="trackWhatsApp()"
+     style="font-size:1.1rem; padding:1rem 2.5rem;">
+    📲 Escribir por WhatsApp
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <strong>Almacén JYB</strong> · Av. Santa Fe, Barrio San Roque, Perico · Hecho con ❤️ en Jujuy</p>
+</footer>
+
+</body>
+</html>
