@@ -5,19 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Almacén JYB – Perico, Jujuy</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
-  <!-- Google Analytics 4 – reemplazá G-XXXXXXXXXX con tu Measurement ID -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <!-- Google Analytics 4 – Almacén JYB -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9LKJ94R2N"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
+    gtag('config', 'G-C9LKJ94R2N');
 
     // Evento: click en botón WhatsApp
-    function trackWhatsApp() {
+    function trackWhatsApp(ubicacion) {
       gtag('event', 'whatsapp_click', {
         event_category: 'contacto',
-        event_label: 'boton_pedir_ahora'
+        event_label: 'boton_pedir_ahora',
+        cta_location: ubicacion
       });
     }
 
@@ -25,7 +26,8 @@
     function trackCall() {
       gtag('event', 'phone_click', {
         event_category: 'contacto',
-        event_label: 'boton_llamar'
+        event_label: 'boton_llamar',
+        cta_location: 'contacto'
       });
     }
   </script>
@@ -338,7 +340,7 @@
   <a class="btn-primary"
      href="https://wa.me/5493884000000?text=Hola!%20Quiero%20hacer%20un%20pedido%20🐔"
      target="_blank"
-     onclick="trackWhatsApp()"
+     onclick="trackWhatsApp('header')"
      style="padding:0.55rem 1.2rem; font-size:0.82rem;">
     📲 Pedir por WhatsApp
   </a>
@@ -354,7 +356,7 @@
       <a class="btn-primary"
          href="https://wa.me/5493884000000?text=Hola!%20Quiero%20hacer%20un%20pedido%20🐔"
          target="_blank"
-         onclick="trackWhatsApp()">
+         onclick="trackWhatsApp('hero')">
         📲 Hacer un pedido
       </a>
       <a class="btn-secondary" href="#menu">Ver menú ↓</a>
@@ -489,7 +491,7 @@
         <a class="btn-primary"
            href="https://wa.me/5493884000000?text=Hola!%20Quiero%20hacer%20un%20pedido%20🐔"
            target="_blank"
-           onclick="trackWhatsApp()">
+           onclick="trackWhatsApp('contacto')">
           📲 Escribir por WhatsApp
         </a>
         <a class="btn-secondary"
@@ -514,7 +516,7 @@
   <a class="btn-primary"
      href="https://wa.me/5493884000000?text=Hola!%20Quiero%20hacer%20un%20pedido%20🐔"
      target="_blank"
-     onclick="trackWhatsApp()"
+     onclick="trackWhatsApp('final')"
      style="font-size:1.1rem; padding:1rem 2.5rem;">
     📲 Escribir por WhatsApp
   </a>
