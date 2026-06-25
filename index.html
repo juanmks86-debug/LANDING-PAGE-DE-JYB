@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Almacén JYB – Perico, Jujuy</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍗</text></svg>">
+  <meta property="og:title" content="Almacén JYB – Perico, Jujuy"/>
+  <meta property="og:description" content="Pollos frescos, almacén, gaseosas, limpieza e impresión. Pedidos por WhatsApp."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://landing-page-de-jyb.vercel.app/"/>
+  <meta name="theme-color" content="#F47C00"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
   <!-- Google Analytics 4 – Almacén JYB -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9LKJ94R2N"></script>
@@ -30,6 +36,15 @@
         cta_location: 'contacto'
       });
     }
+
+    // Evento: click en navegación del menú superior
+    function trackNav(seccion) {
+      gtag('event', 'menu_navigation_click', {
+        event_category: 'navegacion',
+        event_label: 'menu_superior',
+        nav_section: seccion
+      });
+    }
   </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,6 +52,7 @@
     :root {
       --naranja:    #F47C00;
       --naranja-vivo: #FF9A1F;
+      --celeste:    #75AADB;
       --negro:      #0D0D0D;
       --gris-oscuro:#1A1A1A;
       --gris-medio: #2C2C2C;
@@ -56,9 +72,25 @@
       line-height: 1.6;
     }
 
+    /* ── BANNER MUNDIAL ── */
+    .banner-mundial {
+      background: linear-gradient(90deg, var(--celeste), #ffffff 50%, var(--celeste));
+      color: var(--negro);
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 0.55rem 1rem;
+      letter-spacing: 0.03em;
+      position: sticky;
+      top: 0;
+      z-index: 101;
+    }
+    .banner-mundial span.ball { display: inline-block; animation: spin 3s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
     /* ── NAV ── */
     nav {
-      position: sticky; top: 0; z-index: 100;
+      position: sticky; top: 36px; z-index: 100;
       background: rgba(13,13,13,0.95);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--gris-medio);
@@ -167,6 +199,44 @@
       0%, 100% { transform: translateY(0); }
       50%       { transform: translateY(-12px); }
     }
+    .producto-oferta {
+      position: relative;
+      width: clamp(220px, 30vw, 320px);
+      height: clamp(220px, 30vw, 320px);
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, var(--naranja-vivo), var(--naranja) 70%);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 70px rgba(244,124,0,0.45);
+      animation: float 3s ease-in-out infinite;
+      outline: 4px dashed var(--celeste);
+      outline-offset: 10px;
+    }
+    .producto-oferta span {
+      font-size: clamp(6rem, 14vw, 9rem);
+    }
+    .badge-oferta {
+      position: absolute;
+      top: -10px; right: -10px;
+      background: var(--negro);
+      border: 2px solid var(--naranja);
+      color: var(--naranja);
+      font-family: var(--ff-display);
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      padding: 0.5rem 0.9rem;
+      border-radius: 50%;
+      width: 70px; height: 70px;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      line-height: 1;
+      transform: rotate(8deg);
+    }
+    .pelota-decorativa {
+      position: absolute;
+      bottom: 10%; left: 0;
+      font-size: 2.5rem;
+      animation: spin 4s linear infinite, float 2.5s ease-in-out infinite;
+    }
     .hero-stat {
       position: absolute; bottom: 0; right: 0;
       background: var(--gris-oscuro);
@@ -222,6 +292,7 @@
       border-radius: 8px;
       padding: 1.5rem;
       transition: border-color 0.2s, transform 0.2s;
+      overflow: hidden;
     }
     .menu-card:hover { border-color: var(--naranja); transform: translateY(-3px); }
     .menu-card .emoji { font-size: 2.2rem; margin-bottom: 0.8rem; display: block; }
@@ -233,6 +304,49 @@
       font-size: 1.6rem;
       color: var(--naranja);
     }
+
+    /* ── CARRUSEL POLLOS FRESCOS ── */
+    .carrusel-pollo {
+      position: relative;
+      width: calc(100% + 3rem);
+      margin: -1.5rem -1.5rem 1rem -1.5rem;
+      height: 160px;
+      overflow: hidden;
+      border-radius: 8px 8px 0 0;
+    }
+    .carrusel-pollo .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+    }
+    .carrusel-pollo .slide.activo { opacity: 1; }
+    .carrusel-pollo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .carrusel-pollo .slide-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+      color: var(--texto);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.4rem 0.7rem 0.3rem;
+    }
+    .carrusel-pollo .dots {
+      position: absolute;
+      bottom: 6px; right: 8px;
+      display: flex; gap: 4px;
+      z-index: 2;
+    }
+    .carrusel-pollo .dots span {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.45);
+    }
+    .carrusel-pollo .dots span.activo { background: var(--naranja); }
 
     /* ── POR QUÉ JYB ── */
     .features-grid {
@@ -329,13 +443,18 @@
 </head>
 <body>
 
+<!-- BANNER MUNDIAL -->
+<div class="banner-mundial">
+  <span class="ball">⚽</span> Vivimos la fiesta del Mundial 2026 🇦🇷 — Hacé tu pedido y disfrutá el partido <span class="ball">⚽</span>
+</div>
+
 <!-- NAV -->
 <nav>
   <div class="nav-logo">JYB<span> Almacén</span></div>
   <ul class="nav-links">
-    <li><a href="#menu">Menú</a></li>
-    <li><a href="#nosotros">Nosotros</a></li>
-    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#menu" onclick="trackNav('menu')">Menú</a></li>
+    <li><a href="#nosotros" onclick="trackNav('nosotros')">Nosotros</a></li>
+    <li><a href="#contacto" onclick="trackNav('contacto')">Contacto</a></li>
   </ul>
   <a class="btn-primary"
      href="https://wa.me/5493884000000?text=Hola!%20Quiero%20hacer%20un%20pedido%20🐔"
@@ -349,9 +468,9 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-text">
-    <span class="hero-badge">🛒 Almacén en Perico, Jujuy</span>
+    <span class="hero-badge">🛒 Almacén en Perico, Jujuy 🇦🇷⚽</span>
     <h1>Todo lo que<br>necesitás en<br><span class="accent">un solo lugar</span></h1>
-    <p class="hero-sub">Pollos frescos, almacén, gaseosas, artículos de limpieza y servicio de impresión. En el Barrio San Roque, Perico.</p>
+    <p class="hero-sub">Pollos frescos, almacén, gaseosas, artículos de limpieza y servicio de impresión. En Pellegrini 260, Perico.</p>
     <div class="hero-actions">
       <a class="btn-primary"
          href="https://wa.me/5493884000000?text=Hola!%20Quiero%20hacer%20un%20pedido%20🐔"
@@ -363,7 +482,11 @@
     </div>
   </div>
   <div class="hero-image">
-    <span class="pollo-emoji">🍗</span>
+    <div class="producto-oferta">
+      <span>🐔</span>
+      <div class="badge-oferta">-15%<br>HOY</div>
+    </div>
+    <span class="pelota-decorativa">⚽</span>
     <div class="hero-stat">
       <strong>100%</strong>
       <span>Pollo fresco<br>sin congelar</span>
@@ -381,6 +504,27 @@
 
   <div class="menu-grid">
     <div class="menu-card">
+      <div class="carrusel-pollo" id="carrusel-pollo">
+        <div class="slide activo">
+          <img src="img/pollo-entero.jpg" alt="Pollo entero fresco" loading="lazy">
+          <span class="slide-label">Pollo entero</span>
+        </div>
+        <div class="slide">
+          <img src="img/pechugas.jpg" alt="Pechugas de pollo frescas" loading="lazy">
+          <span class="slide-label">Pechugas</span>
+        </div>
+        <div class="slide">
+          <img src="img/muslos.jpg" alt="Muslos de pollo frescos" loading="lazy">
+          <span class="slide-label">Muslos</span>
+        </div>
+        <div class="slide">
+          <img src="img/alas.jpg" alt="Alas de pollo frescas" loading="lazy">
+          <span class="slide-label">Alas</span>
+        </div>
+        <div class="dots">
+          <span class="activo"></span><span></span><span></span><span></span>
+        </div>
+      </div>
       <span class="emoji">🐔</span>
       <h3>Pollos Frescos</h3>
       <p>Pollo entero, mitades, pechugas, muslos y menudos. Frescos todos los días.</p>
@@ -450,7 +594,7 @@
     <div class="feature">
       <div class="feature-icon">📍</div>
       <div>
-        <h4>En el Barrio San Roque</h4>
+        <h4>En Pellegrini 260</h4>
         <p>Negocio familiar de Perico. Te atendemos como te merecés.</p>
       </div>
     </div>
@@ -470,7 +614,7 @@
         <div class="info-icon">📍</div>
         <div>
           <h4>Dirección</h4>
-          <p>Av. Santa Fe, Barrio San Roque<br>Ciudad de Perico, Jujuy</p>
+          <p>Pellegrini 260<br>Perico, Jujuy</p>
         </div>
       </div>
       <div class="info-item">
@@ -502,9 +646,15 @@
       </div>
     </div>
     <div class="mapa-embed">
-      <span>📍</span>
-      <p>Reemplazá esto con un embed<br>de Google Maps</p>
-      <small style="color:var(--texto-suave);">iframe src="https://maps.google.com/..."</small>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3633.8156870163953!2d-65.11011662567743!3d-24.387714392468485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x941bacd75641d37f%3A0xed732d52e845b7a!2sPellegrini%20260%2C%20Y4610%20Perico%2C%20Jujuy!5e0!3m2!1ses!2sar!4v1782385584687!5m2!1ses!2sar"
+        width="100%"
+        height="280"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin">
+      </iframe>
     </div>
   </div>
 </section>
@@ -524,8 +674,27 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 <strong>Almacén JYB</strong> · Av. Santa Fe, Barrio San Roque, Perico · Hecho con ❤️ en Jujuy</p>
+  <p>© 2026 <strong>Almacén JYB</strong> · Pellegrini 260, Perico · Hecho con ❤️ en Jujuy</p>
 </footer>
+
+<script>
+  // Carrusel automático - Pollos Frescos
+  (function () {
+    const cont = document.getElementById('carrusel-pollo');
+    if (!cont) return;
+    const slides = cont.querySelectorAll('.slide');
+    const dots = cont.querySelectorAll('.dots span');
+    let actual = 0;
+
+    setInterval(() => {
+      slides[actual].classList.remove('activo');
+      dots[actual].classList.remove('activo');
+      actual = (actual + 1) % slides.length;
+      slides[actual].classList.add('activo');
+      dots[actual].classList.add('activo');
+    }, 3000);
+  })();
+</script>
 
 </body>
 </html>
